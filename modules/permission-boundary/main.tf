@@ -11,6 +11,10 @@ resource "aws_iam_policy" "boundary" {
     team = var.team
   })
 
+  lifecycle {
+    prevent_destroy = false
+  }
+
   tags = {
     Name = local.name
     Team = "devops"
