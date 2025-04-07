@@ -7,7 +7,7 @@
       "Resource": "*",
       "Condition": {
         "StringNotEquals": {
-          "aws:ResourceTag/Team": "${team}"
+          "aws:ResourceTag/team": "${team}"
         }
       }
     },

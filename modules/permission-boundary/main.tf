@@ -17,6 +17,6 @@ resource "aws_iam_policy" "boundary" {
 
   tags = {
     Name = local.name
-    Team = "devops"
+    team = "devops"
   }
 }
