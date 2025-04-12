@@ -13,35 +13,15 @@
     },
     {
       "Effect": "Deny",
-      "Action": ["iam:*"],
+      "Action": [
+        "iam:*"
+      ],
       "Resource": "*",
       "Condition": {
         "StringNotEquals": {
           "aws:ResourceTag/team": "${team}"
         }
       }
-    },
-    {
-      "Sid": "DenyAllWriteActions",
-      "Effect": "Deny",
-      "Action": [
-        "*:Put*",
-        "*:Create*",
-        "*:Update*",
-        "*:Delete*",
-        "*:Modify*",
-        "*:Attach*",
-        "*:Detach*",
-        "*:Associate*",
-        "*:Disassociate*",
-        "*:Register*",
-        "*:Deregister*",
-        "*:Terminate*",
-        "*:Stop*",
-        "*:Start*",
-        "*:Reboot*"
-      ],
-      "Resource": "*"
     },
     {
       "Sid": "DenySensitiveReads",
@@ -80,8 +60,14 @@
       "Resource": "*",
       "Condition": {
         "ForAnyValue:StringEquals": {
-          "ec2:FromPort": ["22", "3389"],
-          "ec2:ToPort": ["22", "3389"]
+          "ec2:FromPort": [
+            "22",
+            "3389"
+          ],
+          "ec2:ToPort": [
+            "22",
+            "3389"
+          ]
         }
       }
     },
