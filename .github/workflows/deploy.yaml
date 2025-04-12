@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy permission boundaries
+    runs-on: ubuntu-latest
+    environment: devl
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy terraform
+        uses: androzo/terraform-deploy@main
+        with:
+          terraform_path: .
+          role_arn: ${{ secrets.AWS_GITHUB_OIDC_ROLE }}
