@@ -22,16 +22,32 @@
       ]
     },
     {
-      "Sid": "DenyUntaggedResourcesExceptS3",
+      "Sid": "DenyCreateWithoutCorrectTeamTagExceptNonTaggableResources",
       "Effect": "Deny",
       "Action": "*",
-      "NotResource": [
-        "arn:aws:s3:::androzo-terraform-tfstate",
-        "arn:aws:s3:::androzo-terraform-tfstate/*"
-      ],
+      "Resource": "*",
       "Condition": {
         "StringNotEqualsIfExists": {
-          "aws:ResourceTag/team": "${team}"
+          "aws:RequestTag/team": "${team}"
+        },
+        "StringNotEquals": {
+          "aws:RequestResourceType": [
+            "s3",
+            "logs:log-group",
+            "autoscaling:autoScalingGroup",
+            "cloudwatch:alarm",
+            "ec2:security-group",
+            "ec2:subnet",
+            "ec2:vpc",
+            "elasticloadbalancing:loadbalancer",
+            "kms:key",
+            "kms:alias",
+            "lambda:layer",
+            "ssm:parameter",
+            "servicediscovery:namespace",
+            "route53:hostedzone",
+            "iam:service-linked-role"
+          ]
         }
       }
     },
