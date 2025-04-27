@@ -8,6 +8,12 @@
       "Condition": {
         "StringNotEquals": {
           "aws:ResourceTag/team": "${team}"
+        },
+        "ArnNotLike": {
+          "aws:ResourceArn": [
+            "arn:aws:s3:::androzo-terraform-tfstate",
+            "arn:aws:s3:::androzo-terraform-tfstate/*"
+          ]
         }
       }
     },
