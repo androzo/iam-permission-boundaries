@@ -2,18 +2,36 @@
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Effect": "Deny",
+      "Sid": "AllowTaggedResources",
+      "Effect": "Allow",
       "Action": "*",
       "Resource": "*",
       "Condition": {
-        "StringNotEquals": {
+        "StringEqualsIfExists": {
           "aws:ResourceTag/team": "${team}"
-        },
-        "ArnNotLike": {
-          "aws:ResourceArn": [
-            "arn:aws:s3:::androzo-terraform-tfstate",
-            "arn:aws:s3:::androzo-terraform-tfstate/*"
-          ]
+        }
+      }
+    },
+    {
+      "Sid": "AllowSpecificS3Bucket",
+      "Effect": "Allow",
+      "Action": "*",
+      "Resource": [
+        "arn:aws:s3:::androzo-terraform-tfstate",
+        "arn:aws:s3:::androzo-terraform-tfstate/*"
+      ]
+    },
+    {
+      "Sid": "DenyUntaggedResourcesExceptS3",
+      "Effect": "Deny",
+      "Action": "*",
+      "NotResource": [
+        "arn:aws:s3:::androzo-terraform-tfstate",
+        "arn:aws:s3:::androzo-terraform-tfstate/*"
+      ],
+      "Condition": {
+        "StringNotEqualsIfExists": {
+          "aws:ResourceTag/team": "${team}"
         }
       }
     },
