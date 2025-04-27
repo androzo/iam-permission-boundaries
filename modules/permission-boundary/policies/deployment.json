@@ -25,7 +25,10 @@
       "Sid": "DenyCreateWithoutCorrectTeamTagExceptNonTaggableResources",
       "Effect": "Deny",
       "Action": "*",
-      "Resource": "*",
+      "NotResource": [
+        "arn:aws:s3:::androzo-terraform-tfstate",
+        "arn:aws:s3:::androzo-terraform-tfstate/*"
+      ],
       "Condition": {
         "StringNotEqualsIfExists": {
           "aws:RequestTag/team": "${team}"
